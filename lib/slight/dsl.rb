@@ -1,27 +1,22 @@
 module Slight
-	class DSL
-		def initialize(io)
-			@output_buffer = io
-		end
-
+	module DSL
 		def echo(str)
 			@output_buffer << str
 		end
 
-		def transform(file_path)
-			cur = @output_buffer.pos
-			eval(IO.read(find_file), nil, find_file, __LINE__)
-			@output_buffer.pos = cur == 0 ? 0 : cur + 1
-		end
+		#def __dsl__transform(file_path)
+		#	cur = @output_buffer.pos
+		#	eval(IO.read(find_file), nil, find_file, __LINE__)
+		#	@output_buffer.pos = cur == 0 ? 0 : cur + 1
+		#end
 
-		private 
-		def define(dsl)
-			self.class.send(:define_method, dsl){|*param|
-				packup(dsl,*param)
+		def __dsl__define(dsl)
+			DSL.send(:define_method, dsl){|*param|
+				__dsl__packup(dsl,*param)
 			}
 		end
 
-		def packup(tag, attribute)
+		def __dsl__packup(tag, attribute)
 			tag = tag.to_s
 			tag.sub!(/^_/,'') if tag.start_with?('_')
 
@@ -31,11 +26,6 @@ module Slight
 			sub = yield if block_given?
 			echo sub.to_s if sub.class != Hash && sub.class != Array 
 			echo "</#{tag}>"
-		end
-
-		def method_missing(fun, *param, &block)
-			define(fun)
-			self.send(fun, *param, &block)
 		end
 
 	end

@@ -25,8 +25,17 @@ module Slight
         b.local_variable_set(key.to_sym, value)
       end
       cur = @output_buffer.pos
-      eval(src_data, b)
+
+      begin
+        eval(src_data, b)
+      rescue Exception e
+        return "#{e.message}<br>" + 
+               "┗>#{e.inspect.to_html}<br>..." +
+               "┗>#{e.backtrace.join('<br>.........')}"
+      end
+
       @output_buffer.pos = cur == 0 ? 0 : cur + 1
+      @output_buffer
     end
 
   end

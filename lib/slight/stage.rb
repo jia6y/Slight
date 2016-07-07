@@ -15,11 +15,11 @@ module Slight
       DSL.send(fun, *param, &block)
     end
 
-    private :__dsl__define, :__dsl__packup, :__dsl__transform
+    private :__dsl__define, :__dsl__packup, :__dsl__transform, :__dsl__lazyload
 
   end
 
-  class Compiler < Base
+  class Template < Base
     def render(src_data, local_vars, b = binding)
       local_vars.each_pair do |key, value|
         b.local_variable_set(key.to_sym, value)

@@ -4,11 +4,23 @@ module Slight
       @output_buffer << str
     end
 
+    def yield!(target_src)
+
+    end
+
+    def component!(target_src, auto_refresh=0)
+
+    end
+
     #def __dsl__transform(file_path)
     # cur = @output_buffer.pos
     # eval(IO.read(find_file), nil, find_file, __LINE__)
     # @output_buffer.pos = cur == 0 ? 0 : cur + 1
     #end
+
+    def __dsl__lazyload(endpoint)
+
+    end
 
     def __dsl__define(dsl)
       DSL.send(:define_method, dsl){|*param|

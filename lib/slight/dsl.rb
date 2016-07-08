@@ -1,7 +1,18 @@
 module Slight
   module DSL
+
+    def initialize(io)
+      @output_buffer = io
+    end
+
     def echo(str)
       @output_buffer << str
+    end
+
+    def import(uri, type=nil)
+      type ||= uri.split('.')[-1]     
+      echo %q[<script type="text/javascript" src="#{uri}"></script>] if type == "js"
+      echo %q[<link rel="stylesheet" href="#{uri}"></link>] if type == "css"
     end
 
     def yield!(target_src)
@@ -9,16 +20,6 @@ module Slight
     end
 
     def component!(target_src, auto_refresh=0)
-
-    end
-
-    #def __dsl__transform(file_path)
-    # cur = @output_buffer.pos
-    # eval(IO.read(find_file), nil, find_file, __LINE__)
-    # @output_buffer.pos = cur == 0 ? 0 : cur + 1
-    #end
-
-    def __dsl__lazyload(endpoint)
 
     end
 

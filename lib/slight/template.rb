@@ -4,10 +4,10 @@ module Slight
   class Base
     include DSL
 
-    def initialize(io = StringIO.new)
-      #@file_path = file_path
+    def initialize(options, io = StringIO.new)
       @io = io
       @output_buffer = io
+      @options = options
     end
 
     def method_missing(fun, *param, &block)
@@ -15,7 +15,7 @@ module Slight
       DSL.send(fun, *param, &block)
     end
 
-    private :__dsl__define, :__dsl__packup, :__dsl__transform, :__dsl__lazyload
+    private :__dsl__define, :__dsl__packup
 
   end
 

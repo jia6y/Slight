@@ -14,8 +14,7 @@ class A
 
 	private
 	def method_missing(fun, *param, &block)
-			p fun
-			p 123
+		puts "missing #{fun}"
 	end
 
 	def h
@@ -33,11 +32,43 @@ class B < A
 end
 
 b= B.new
-b.hello
-b.h
-b.call_yield
+#b.hello
+#b.h
+#b.call_yield
+#
+#{:s=>2}.each_pair{|k,v|
+#	p k
+#}
 
-{:s=>2}.each_pair{|k,v|
-	p k
+b.instance_eval{
+	def _(str, attributes={})
+		puts "<div class=#{str} f=#{attributes[:f]}></div>"
+	end
+
+	
+	def ss
+		b = binding
+		b.local_variable_set(:a113, 'hello binding')
+		src=%q[
+			p a113
+			hh
+			_'btn btn-primary', f:1 do
+
+			end
+
+		]
+		eval(src, b)
+	end
+
+	def hh
+		p 'called haha'
+	end
 }
 
+p b.singleton_methods
+b.ss
+
+def d(aa)
+	p aa
+end
+d ['222']

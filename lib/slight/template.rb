@@ -1,45 +1,36 @@
 require 'slight/dsl'
 
 module Slight
-  class Base
-    include DSL
-
-    def initialize(options, io = StringIO.new)
-      @io = io
-      @output_buffer = io
+  class Template 
+    def initialize(options = {})
+      @output_buffer = ""
       @options = options
+      @dsl = DSL.new(@output_buffer)
+      resolve_shortcut(@options)
     end
 
-    def method_missing(fun, *param, &block)
-      __dsl__define(fun)
-      DSL.send(fun, *param, &block)
-    end
-
-    private :__dsl__define, :__dsl__packup
-
-  end
-
-  class Template < Base
-    def render(src_data, local_vars, b = binding)
+    def render(src_data, local_vars)
+      @output_buffer.clear
       local_vars.each_pair do |key, value|
-        b.local_variable_set(key.to_sym, value)
+        @dsl.binding_scope.local_variable_set(key.to_sym, value)
       end
-      cur = @output_buffer.pos
-
       begin
-        eval(src_data, b)
-      rescue Exception e
-        return "#{e.message}<br>" + 
-               "┗>#{e.inspect.to_html}<br>..." +
-               "┗>#{e.backtrace.join('<br>.........')}"
+        eval(src_data, @dsl.binding_scope)
+      rescue Exception ex
+        raise DSLException.new([ex.inspect, ex.backtrace.join("\n")].join("\n")) 
       end
-
-      @output_buffer.pos = cur == 0 ? 0 : cur + 1
       @output_buffer
     end
 
-  end
+    private 
+    def resolve_shortcut(options)
+      @dsl.class.class_eval do 
+        __dsl__resolve_tag_shortcut(@options[:tag_shortcut])
+        __dsl__resolve_attr_shortcut(@options[:attr_shortcut])
+      end
+    end
 
+  end
 end
 
 

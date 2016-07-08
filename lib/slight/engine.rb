@@ -1,29 +1,35 @@
 require 'slight/config'
+require 'slight/template'
 
 module Slight
-	class Engine
-		def initialize
-			@options = {}
+  class Engine
+    def initialize(options = {})
 
-			Configure.new(@options) do 
-				add_attribute_rule("k", "class")
-				add_attribute_rule("css", "style")
-				add_attribute_rule("i", "", NoQuote)
-				add_attribute_rule("ln", "href")
-				add_attribute_rule("url", "href")
-				add_attribute_rule("char", "charset")
-				add_attribute_rule("fn", "src")
-				add_attribute_rule("lang", "language")
-				add_attribute_rule("value!", "value", NoQuote)
-				add_attribute_rule("xn", "xmlns")
-				add_attribute_rule("mf", "manifest")
+      Configure.set(options) do 
+        attr_shortcut "k", "class"
+        attr_shortcut "css", "style"
+        attr_shortcut "i", "", NoQuote
+        attr_shortcut "ln", "href"
+        attr_shortcut "url", "href"
+        attr_shortcut "char", "charset"
+        attr_shortcut "fn", "src"
+        attr_shortcut "lang", "language"
+        attr_shortcut "value!", "value", NoQuote
+        attr_shortcut "xn", "xmlns"
+        attr_shortcut "mf", "manifest"
 
-				add_tag_rule("br", "<br/>")
-				add_tag_rule("hr", "<hr/>")
-				add_tag_rule("js", %q[<script language="javascript"></script>])
+        tag_shortcut "_", "div"
+        tag_shortcut "js", %q[script language="javascript"]
 
-				blinding :p, :select
+        blinding :p, :select
+      end
 
-			end
-	end
+      @template = Template.new(options)
+    end
+
+    def render(src_data, local_vars)
+      @template.render(src_data, local_vars)
+    end
+
+  end
 end

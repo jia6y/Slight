@@ -1,25 +1,39 @@
+require 'slight/delegation'
+
 module Slight
-  module Configure
+  class Configuration
     NoQuote = 0
-    def self.set(options = {})
+
+    def configure(options = {}, &blk)
       @options = options
-      yield
+      blk.call self
       @options
     end
 
-    def self.attr_shortcut(pattern, replacement, quote=1)
-      @options[:attr_shortcut] ||= {}
-      @options[:attr_shortcut][pattern.to_sym] = [replacement, quote]
+    def hh
+      p 123
     end
 
-    def self.tag_shortcut(pattern, replacement)
-      @options[:tag_shortcut] ||= {}
-      @options[:tag_shortcut][pattern.to_sym] = replacement
+    def use(template)
+      [template.render]
     end
 
-    def self.blinding(*system_fun)
+    def shortcut(type, pattern, *replacement)
+      case(type) 
+      when :A
+        @options[:shortcutA] ||= {}
+        @options[:shortcutA][pattern.to_sym] = replacement
+      when :T 
+        @options[:shortcutB] ||= {}
+        @options[:shortcutB][pattern.to_sym] = replacement
+      end
+    end
+
+    def blinding(*system_fun)
       @options[:blinding] = system_fun.map(&:to_sym)
     end
 
   end
 end
+
+delegate :configure, "Slight::Configuration.new"

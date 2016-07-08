@@ -3,25 +3,24 @@ require 'slight/template'
 
 module Slight
   class Engine
+
     def initialize(options = {})
+      configure(options) do |c|
+        c.shortcut :A, "k", "class"
+        c.shortcut :A, "css", "style"
+        c.shortcut :A, "i", "", NoQuote
+        c.shortcut :A, "ln", "href"
+        c.shortcut :A, "url", "href"
+        c.shortcut :A, "char", "charset"
+        c.shortcut :A, "fn", "src"
+        c.shortcut :A, "lang", "language"
+        c.shortcut :A, "value!", "value", NoQuote
+        c.shortcut :A, "xn", "xmlns"
+        c.shortcut :A, "mf", "manifest"
+        c.shortcut :T,  "_", "div"
+        c.shortcut :T,  "js", %q[script language="javascript"]
 
-      Configure.set(options) do 
-        attr_shortcut "k", "class"
-        attr_shortcut "css", "style"
-        attr_shortcut "i", "", NoQuote
-        attr_shortcut "ln", "href"
-        attr_shortcut "url", "href"
-        attr_shortcut "char", "charset"
-        attr_shortcut "fn", "src"
-        attr_shortcut "lang", "language"
-        attr_shortcut "value!", "value", NoQuote
-        attr_shortcut "xn", "xmlns"
-        attr_shortcut "mf", "manifest"
-
-        tag_shortcut "_", "div"
-        tag_shortcut "js", %q[script language="javascript"]
-
-        blinding :p, :select
+        c.blinding :p, :select
       end
 
       @template = Template.new(options)

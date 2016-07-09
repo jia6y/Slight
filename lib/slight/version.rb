@@ -123,6 +123,33 @@ a.say
 b=A.new
 b.say
 
+def fun(tag, *at)
+	attrs=[]
+	at.each do |var| 
+		var.each_pair do |a, v|
+			unless a.to_sym == :_ then
+				a = v.class == String ? "#{a}=\"#{v}\"" : "#{a}=#{v.to_s}"
+			else
+				a = "#{v}"
+			end
+			attrs.push a
+		end
+	end
+	content = yield if block_given?
+	space = attrs.length > 0 ? ' ' : ''
+	"<#{tag}#{space}" + attrs.join(" ") + ">#{content}</#{tag}>"
+end
+
+
+msg = fun 'div', name:'div_1', _:'h' , id:12 do 
+	fun 'p' do 
+		fun 'span', css:'color:red'  do
+			fun 'button', id:123, value:123, onclick:'call(123)'
+		end
+	end
+end
+
+puts msg
 
 
 

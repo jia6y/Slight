@@ -15,7 +15,6 @@ module Slight
         c.shortcut :A, "char", "charset"
         c.shortcut :A, "fn", "src"
         c.shortcut :A, "lang", "language"
-        c.shortcut :A, "value!", "value", NoQuote
         c.shortcut :A, "xn", "xmlns"
         c.shortcut :A, "mf", "manifest"
         c.shortcut :T, "_", "div"

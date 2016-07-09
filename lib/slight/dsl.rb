@@ -4,11 +4,15 @@ module Slight
       @output_buffer << str
     end
 
+    def title(str)
+      echo "<title>#{str}</title>"
+    end
+
     def doctype(type)
       echo "<!doctype #{type}>"
     end
 
-    def import(uri, type=nil)
+    def use(uri, type=nil)
       type ||= uri.split('.')[-1]     
       echo %q[<script type="text/javascript" src="#{uri}"></script>] if type == "js"
       echo %q[<link rel="stylesheet" href="#{uri}"></link>] if type == "css"
@@ -28,6 +32,7 @@ module Slight
 
   class DSL
     include DSLEssential
+    undef :p, :select
 
     def initialize(io)
       @output_buffer = io
@@ -59,20 +64,6 @@ module Slight
       sub = yield if block_given?
       echo sub.to_s if sub.class != Hash && sub.class != Array 
       echo "</#{tag}>"
-    end
-
-    def __dsl__resolve_tag_shortcut(tag_rules)
-      tag_rules.each_pair do |tag, replacement|
-        @dsl.class.class_eval do 
-          define_method tag do 
-
-          end
-        end
-      end
-    end
-
-    def __dsl__resolve_attr_shortcut(attr_rules)
-
     end
 
   end

@@ -20,8 +20,6 @@ module Slight
         c.shortcut :A, "mf", "manifest"
         c.shortcut :T, "_", "div"
         c.shortcut :T, "js", %q[script language="javascript"]
-
-        c.blinding :p, :select
       end
 
       @template = Template.new(@options)

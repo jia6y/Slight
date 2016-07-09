@@ -1,7 +1,10 @@
 doctype :html
 html do
   head do
-    title {"Example"}
+    title "Example"
+    use "/css/bootstrap.css"
+    use "/script/jquery.js"
+    use "/script/angular.js"
   end
   body do 
     div "btn btn-primary" do 

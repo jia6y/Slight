@@ -6,7 +6,10 @@ module Slight
       @output_buffer = ""
       @options = options
       @dsl = DSL.new(@output_buffer)
-      resolve_shortcut(@options)
+
+      resolve_shortcutA(@options[:shortcutA])
+      resolve_shortcutT(@options[:shortcutT])
+      resolve_blinding(@options[:blinding])
     end
 
     def render(src_data, local_vars = {})
@@ -23,13 +26,35 @@ module Slight
     end
 
     private 
-    def resolve_shortcut(options)
-      @dsl.class.class_eval do 
-        __dsl__resolve_tag_shortcut(@options[:tag_shortcut])
-        __dsl__resolve_attr_shortcut(@options[:attr_shortcut])
+    def resolve_shortcutA(shortcutA)
+      dsl_singleton_eval do 
+        shortcutA.each do |attr_pair|
+          
+          
+        end
       end
     end
 
+    def resolve_shortcutT(shortcutT)
+      dsl_singleton_eval do 
+        shortcutA.each_pair do |a|
+          define_method()
+        end
+      end
+    end
+
+    def resolve_blinding(blinding)
+      dsl_singleton_eval do 
+        blinding.each do |m|
+          undef_method m
+        end 
+      end
+    end
+
+    def dsl_singleton_eval(&blk)
+      __dsl__ ||= @dsl.singleton_class
+      __dsl__.class_eval(&blk)
+    end
   end
 end
 

@@ -10,12 +10,9 @@ module Slight
       @options
     end
 
-    def hh
-      p 123
-    end
-
-    def use(template)
-      [template.render]
+    def use(t, d = '<')
+      @options[:prep] ||= []
+      d == '<' ? @options[:prep].push(t) : @options[:prep].unshift(t)
     end
 
     def shortcut(type, pattern, *replacement)
@@ -24,8 +21,8 @@ module Slight
         @options[:shortcutA] ||= {}
         @options[:shortcutA][pattern.to_sym] = replacement
       when :T 
-        @options[:shortcutB] ||= {}
-        @options[:shortcutB][pattern.to_sym] = replacement
+        @options[:shortcutT] ||= {}
+        @options[:shortcutT][pattern.to_sym] = replacement
       end
     end
 

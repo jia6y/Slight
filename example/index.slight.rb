@@ -6,6 +6,7 @@ html do
   body do 
     div "btn btn-primary" do 
       nav "nav nav-pill", css: "color: red" do 
+        
       end
     end
   end

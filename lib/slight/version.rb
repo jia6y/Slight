@@ -72,3 +72,28 @@ def d(aa)
 	p aa
 end
 d ['222']
+
+
+class BBB
+	def s
+		@sss
+	end
+end
+
+class AAA < BBB
+	def b
+		@sss=567
+	end
+end
+
+a = AAA.new
+p a.b
+p a.s
+
+
+
+
+
+
+
+

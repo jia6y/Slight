@@ -9,7 +9,7 @@ module Slight
       resolve_shortcut(@options)
     end
 
-    def render(src_data, local_vars)
+    def render(src_data, local_vars = {})
       @output_buffer.clear
       local_vars.each_pair do |key, value|
         @dsl.binding_scope.local_variable_set(key.to_sym, value)

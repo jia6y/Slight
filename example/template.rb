@@ -1,7 +1,17 @@
-require_relative '../lib/slight/delegation'
-require_relative '../lib/slight/config'
+require 'slight/config'
+require 'slight/prep'
 
+class PrettyPrep < Prep
+  def scan(src_data)
+
+  end
+end
+
+class SimplePrep < Prep
+end
 
 configure do |c|
-	c.hh
+  c.use PrettyPrep
+  c.use SimplePrep, '>'
 end
+

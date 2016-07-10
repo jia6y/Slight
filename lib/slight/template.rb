@@ -18,9 +18,9 @@ module Slight
         @dsl.binding_scope.local_variable_set(key.to_sym, value)
       end
       begin
-        eval(src_data, @dsl.binding_scope)
+        eval(src_data, @dsl.binding_scope, nil, __LINE__ + 1)
       rescue => ex
-        raise DSLException.new([ex.inspect, ex.backtrace.join("\n")].join("\n")) 
+        raise DSLException.new(ex.message) 
       end
       @output_buffer
     end

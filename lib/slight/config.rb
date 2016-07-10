@@ -1,15 +1,28 @@
-require 'slight/delegation'
-
 module Slight
   class Configuration
-    
-    def configure(options = {}, &blk)
+
+    def initialize(options = {}, &blk)
       @options = options
+      @options[:cus] ||= {}
       blk.call self
       @options
     end
 
-    def use(t, d = '<')
+    def set(k, v)
+      @options[:cus][K] = v
+    end
+
+    def use(t, flag = :before)
+      @options[:before_filter] ||= []
+      @options[:after_filter] ||= []
+      if flag == :before then 
+        @options[:before_filter].push(t)
+      else
+        @options[:after_filter].push(t)
+      end
+    end
+
+    def use_after(t, d = '<')
       @options[:prep] ||= []
       d == '<' ? @options[:prep].push(t) : @options[:prep].unshift(t)
     end
@@ -31,5 +44,3 @@ module Slight
 
   end
 end
-
-delegate :configure, "Slight::Configuration.new"

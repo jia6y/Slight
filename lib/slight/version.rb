@@ -156,20 +156,18 @@ puts msg
 p 'as adddd'.split(' ')[0]
 p 'as adddd'.split(':')[0]
 
-def aqqq; p 123 ;end 
-aqqq
-
-def img?
-	p 223344
+module CM
+	def c
+		puts "called CM#c"
+	end
 end
 
-img = "img!"
-p img.end_with?("!")
-p img[0...-1]
-p img[0..-2]
+class CC
+	extend CM
+end
 
-
-
+CC.c
+p "hello Oliver:   This is Nemo".gsub(/\s/, "&nbsp;")
 
 
 

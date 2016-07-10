@@ -1,6 +1,6 @@
 module Slight
-	class Prep
-		def scan(src_data)
+	class Filter
+		def self.do(src_data)
 			return src_data
 		end
 	end

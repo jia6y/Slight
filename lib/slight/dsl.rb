@@ -1,7 +1,7 @@
+require 'slight/utils'
+
 module Slight  
   module DSLEssential
-    def echo(str); @output_buffer << str; end
-
     def br; echo "<br/>"; end
     
     def hr; echo "<hr/>"; end
@@ -25,7 +25,7 @@ module Slight
       when :transitional
         echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">]
       when :xml
-        ehoc %q[<?xml version="1.0" encoding="utf-8" ?>]
+        echo %q[<?xml version="1.0" encoding="utf-8" ?>]
       end
     end
 
@@ -52,11 +52,16 @@ module Slight
 
   class DSL
     include DSLEssential
+    include Utils
     undef :p, :select
 
     def initialize(io)
       @output_buffer = io
     end
+
+    def puts(str); @output_buffer << html_escape(str); end
+
+    def echo(str); @output_buffer << str; end
 
     def method_missing(fun, *param, &block)
       __dsl__define(fun)
@@ -107,7 +112,7 @@ module Slight
       if self_close then
         echo "/>"
       else
-        echo yield.to_s if block_given? 
+        puts yield.to_s if block_given? 
         echo "</#{e_tag}>"
       end
     end

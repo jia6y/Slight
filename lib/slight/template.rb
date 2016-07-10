@@ -53,8 +53,8 @@ module Slight
     end
 
     def dsl_singleton_eval(&blk)
-      __dsl__ ||= @dsl.singleton_class
-      __dsl__.class_eval(&blk)
+      @__dsl__ ||= @dsl.singleton_class
+      @__dsl__.class_eval(&blk)
     end
   end
 end

@@ -12,11 +12,7 @@ module Slight
       @options[:cus][k] = v
     end
 
-    def []=(k, v)
-      @options[:cus][k] = v
-    end
-
-    def [](k)
+    def get(k)
       @options[:cus][k]
     end
 

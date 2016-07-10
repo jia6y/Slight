@@ -9,7 +9,7 @@ module Slight
     end
 
     def set(k, v)
-      @options[:cus][K] = v
+      @options[:cus][k] = v
     end
 
     def use(t, flag = :before)

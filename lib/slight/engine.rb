@@ -18,7 +18,7 @@ module Slight
         c.shortcut :A, "mf", "manifest"
         c.shortcut :T, "_", "div"
         c.shortcut :T, "js", %q[script language="javascript"]
-        c.use PrettyHtmlOutput, :after if @options[:cus][:pretty_html]
+        c.use PrettyHtmlOutput, :after if c[:pretty_html]
       end
 
       @template = Template.new(@options)

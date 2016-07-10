@@ -12,6 +12,14 @@ module Slight
       @options[:cus][k] = v
     end
 
+    def []=(k, v)
+      @options[:cus][k] = v
+    end
+
+    def [](k)
+      @options[:cus][k]
+    end
+
     def use(t, flag = :before)
       @options[:before_filter] ||= []
       @options[:after_filter] ||= []

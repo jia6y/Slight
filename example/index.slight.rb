@@ -8,9 +8,11 @@ html do
   end
   body do 
     div "btn btn-primary" do 
-      nav "nav nav-pill", css:"color: red" do 
-        
+      nav "nav nav-pill", id:"NavMenu", css:"color: red" do 
+        img! src:"/images/icon1.png"
       end
     end
+    br
+    hr
   end
 end

@@ -19,7 +19,7 @@ module Slight
       end
       begin
         eval(src_data, @dsl.binding_scope)
-      rescue Exception ex
+      rescue => ex
         raise DSLException.new([ex.inspect, ex.backtrace.join("\n")].join("\n")) 
       end
       @output_buffer
@@ -28,18 +28,19 @@ module Slight
     private 
     def resolve_shortcutA(shortcutA)
       dsl_singleton_eval do 
-        shortcutA.each do |attr_pair|
-          
-          
+        def __dsl__attr_replacements
+          shortcutA
         end
+        private :__dsl__attr_replacements
       end
     end
 
     def resolve_shortcutT(shortcutT)
       dsl_singleton_eval do 
-        shortcutA.each_pair do |a|
-          define_method()
+        def __dsl__tag_replacements
+          shortcutT
         end
+        private :__dsl__attr_replacements
       end
     end
 

@@ -7,9 +7,7 @@ module Slight
     def initialize(options = {})
       @options = options
       configure(@options) do |c|
-        c.shortcut :A, "k", "class"
         c.shortcut :A, "css", "style"
-        c.shortcut :A, "i", "", NoQuote
         c.shortcut :A, "ln", "href"
         c.shortcut :A, "url", "href"
         c.shortcut :A, "char", "charset"
@@ -30,6 +28,5 @@ module Slight
       end
       @template.render(src_data, local_vars)
     end
-
   end
 end

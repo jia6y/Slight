@@ -124,10 +124,12 @@ b=A.new
 b.say
 
 def fun(tag, *at)
+	replacements={ln:'href'}
 	attrs=[]
 	at.each do |var| 
 		var.each_pair do |a, v|
 			unless a.to_sym == :_ then
+				a = replacements.fetch(a,a)
 				a = v.class == String ? "#{a}=\"#{v}\"" : "#{a}=#{v.to_s}"
 			else
 				a = "#{v}"
@@ -141,15 +143,30 @@ def fun(tag, *at)
 end
 
 
-msg = fun 'div', name:'div_1', _:'h' , id:12 do 
-	fun 'p' do 
-		fun 'span', css:'color:red'  do
-			fun 'button', id:123, value:123, onclick:'call(123)'
-		end
-	end
-end
+msg = fun 'div', name:'div_1', _:'h' , id:12  do 
+				fun 'p' do 
+					fun 'span', css:'color:red', ln:'/index.slight'  do
+						fun 'button', id:123, value:123, onclick:'call(123)'
+					end
+				end
+			end
 
 puts msg
+
+p 'as adddd'.split(' ')[0]
+p 'as adddd'.split(':')[0]
+
+def aqqq; p 123 ;end 
+aqqq
+
+def img?
+	p 223344
+end
+
+img = "img!"
+p img.end_with?("!")
+p img[0...-1]
+p img[0..-2]
 
 
 

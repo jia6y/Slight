@@ -2,8 +2,7 @@ require 'slight/delegation'
 
 module Slight
   class Configuration
-    NoQuote = 0
-
+    
     def configure(options = {}, &blk)
       @options = options
       blk.call self

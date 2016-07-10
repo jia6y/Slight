@@ -22,11 +22,6 @@ module Slight
       end
     end
 
-    def use_after(t, d = '<')
-      @options[:prep] ||= []
-      d == '<' ? @options[:prep].push(t) : @options[:prep].unshift(t)
-    end
-
     def shortcut(type, pattern, *replacement)
       case(type) 
       when :A
@@ -44,3 +39,11 @@ module Slight
 
   end
 end
+
+
+
+
+
+
+
+

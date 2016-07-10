@@ -26,11 +26,11 @@ module Slight
 
     def render(src_data, local_vars)
       @options[:before_filter].each do |f|
-        src_data = f.new.do(src_data)
+        src_data = f.do(src_data)
       end
       src_data = @template.render(src_data, local_vars)
       @options[:after_filter].each do |f|
-        src_data = f.new.do(src_data)
+        src_data = f.do(src_data)
       end
       src_data
     end

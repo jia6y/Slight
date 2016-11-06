@@ -1,6 +1,6 @@
 require 'slight/config'
 require 'slight/template'
-require 'slight/filter/pretty_html'
+#require 'slight/filter/pretty_html'
 
 module Slight
   class Engine
@@ -18,13 +18,13 @@ module Slight
         c.shortcut :A, "mf", "manifest"
         c.shortcut :T, "_", "div"
         c.shortcut :T, "js", %q[script language="javascript"]
-        c.use PrettyHtmlOutput, :after if c.get(:pretty_html)
+       #c.use PrettyHtmlOutput, :after if c.get(:pretty_html)
       end
 
       @template = Template.new(@options)
     end
 
-    def render(src_data, local_vars)
+    def render(src_data, local_vars={})
       @options[:before_filter].each do |f|
         src_data = f.do(src_data)
       end

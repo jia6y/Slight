@@ -38,7 +38,6 @@ module Slight
         s.to_s.gsub(/[^a-zA-Z0-9_\-.]/n){ sprintf("%%%02X", $&.unpack("C")[0]) }
       end
       module_function :url_encode
-    end
   end
 end
 

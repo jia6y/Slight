@@ -4,6 +4,11 @@ module Slight
     def initialize(options = {}, &blk)
       @options = options
       @options[:cus] ||= {}
+      @options[:shortcutA] ||= {}
+      @options[:shortcutT] ||= {}
+      @options[:blinding] ||= {}
+      @options[:before_filter] ||= []
+      @options[:after_filter] ||= []
       blk.call self
       @options
     end
@@ -17,8 +22,6 @@ module Slight
     end
 
     def use(t, flag = :before)
-      @options[:before_filter] ||= []
-      @options[:after_filter] ||= []
       if flag == :before then 
         @options[:before_filter].push(t)
       else
@@ -29,10 +32,8 @@ module Slight
     def shortcut(type, pattern, *replacement)
       case(type) 
       when :A
-        @options[:shortcutA] ||= {}
         @options[:shortcutA][pattern.to_sym] = replacement
       when :T 
-        @options[:shortcutT] ||= {}
         @options[:shortcutT][pattern.to_sym] = replacement
       end
     end

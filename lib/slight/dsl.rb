@@ -1,9 +1,9 @@
 require 'slight/utils'
 
-module Slight  
+module Slight
   module DSLEssential
     def br; echo "<br/>"; end
-    
+
     def hr; echo "<hr/>"; end
 
     def title(str); echo "<title>#{str}</title>"; end
@@ -30,8 +30,8 @@ module Slight
     end
 
     def use(uri, type=nil)
-      case type ||= uri.split('.')[-1]  
-      when "js"   
+      case type ||= uri.split('.')[-1]
+      when "js"
         echo %q[<script type="text/javascript" src="#{uri}"></script>]
       when "css"
         echo %q[<link rel="stylesheet" href="#{uri}"></link>]
@@ -72,19 +72,33 @@ module Slight
       binding
     end
 
+    def resolve_shortcutA(shortcutA)
+      @__dsl__attr_replacements = shortcutA
+    end
+
+    def resolve_shortcutT(shortcutT)
+      @__dsl__attr_replacements = shortcutT
+    end
+
+    def resolve_blinding(blinding)
+      blinding.each do |m|
+          undef_method m
+      end
+    end
+
     private
     def __dsl__define(tag)
-      DSL.send(:define_method, dsl){|*at|
-        __dsl__packup(tag.to_s, *at)
+      define_method(tag){|*at, &block|
+        __dsl__packup(tag.to_s, *at, &block)
       }
     end
 
     def __dsl__packup(tag, *at)
-      attr_replacements = __dsl__attr_replacements
-      tag_replacements = __dsl__tag_replacements
+      attr_replacements = @__dsl__attr_replacements||{}
+      tag_replacements = @__dsl__tag_replacements||{}
       attrs=[]
 
-      if self_close = tag.end_with?("!") then 
+      if self_close = tag.end_with?("!") then
         tag = tag[0..-2]
       end
 
@@ -105,25 +119,17 @@ module Slight
       end
 
       s_tag = tag_replacements.fetch(tag, tag)
-      e_tag = tag s_tag.split(" ")[0]
+      e_tag = s_tag.split(" ")[0]
 
       space = attrs.length > 0 ? " " : ""
       echo "<#{s_tag}#{space}#{attrs.join(" ")}"
       if self_close then
         echo "/>"
       else
-        puts yield.to_s if block_given? 
+        puts yield.to_s if block_given?
         echo "</#{e_tag}>"
       end
     end
 
   end
 end
-
-
-
-
-
-
-
-

@@ -24,11 +24,12 @@ module Slight
       @template = Template.new(@options)
     end
 
-    def render(src_data, local_vars={})
+    def render(src_file, local_vars={})
+      src_data = File.new(src_file).read
       @options[:before_filter].each do |f|
         src_data = f.do(src_data)
       end
-      src_data = @template.render(src_data, local_vars)
+      src_data = @template.render(src_data, src_file, local_vars)
       @options[:after_filter].each do |f|
         src_data = f.do(src_data)
       end

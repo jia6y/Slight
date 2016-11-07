@@ -12,13 +12,13 @@ module Slight
       @dsl.resolve_blinding(@options[:blinding])
     end
 
-    def render(src_data, local_vars = {})
+    def render(src_data, src_file, local_vars = {})
       @output_buffer.clear
       local_vars.each_pair do |key, value|
         @dsl.binding_scope.local_variable_set(key.to_sym, value)
       end
       begin
-        eval(src_data, @dsl.binding_scope, nil, __LINE__ + 1)
+        eval(src_data, @dsl.binding_scope, src_file, __LINE__ - 20)
       rescue => ex
         raise DSLException.new(ex.message)
       end

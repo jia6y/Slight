@@ -2,40 +2,42 @@ require 'slight/utils'
 
 module Slight
   module DSLEssential
-    def br; echo "<br/>"; end
+    def br; echo "<br/>\n";nil; end
 
-    def hr; echo "<hr/>"; end
+    def hr; echo "<hr/>\n";nil; end
 
-    def title(str); echo "<title>#{str}</title>"; end
+    def title(str); echo "<title>#{str}</title>\n";nil; end
 
     def doctype(type)
       case type
       when :html, :h5
-        echo "<!DOCTYPE html>"
+        echo "<!DOCTYPE html>\n"
       when :h11
-        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">] + "\n"
       when :strict
-        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">] + "\n"
       when :frameset
-        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">] + "\n"
       when :mobile
-        echo %q[<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">] + "\n"
       when :basic
-        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">] + "\n"
       when :transitional
-        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">]
+        echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">] + "\n"
       when :xml
-        echo %q[<?xml version="1.0" encoding="utf-8" ?>]
+        echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
       end
+      nil
     end
 
     def use(uri, type=nil)
       case type ||= uri.split('.')[-1]
       when "js"
-        echo %q[<script type="text/javascript" src="#{uri}"></script>]
+        echo "<script type=\"text/javascript\" src=\"#{uri}\"></script>\n"
       when "css"
-        echo %q[<link rel="stylesheet" href="#{uri}"></link>]
+        echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
+      nil
     end
 
     def layout_yield(target_src)
@@ -45,7 +47,6 @@ module Slight
     def layout_component(target_src, auto_refresh=0)
 
     end
-
   end
 
   class DSLException < ScriptError ; end
@@ -65,7 +66,7 @@ module Slight
 
     def method_missing(fun, *param, &block)
       __dsl__define(fun)
-      DSL.send(fun, *param, &block)
+      self.send(fun, *param, &block)
     end
 
     def binding_scope
@@ -88,9 +89,11 @@ module Slight
 
     private
     def __dsl__define(tag)
-      define_method(tag){|*at, &block|
-        __dsl__packup(tag.to_s, *at, &block)
-      }
+      DSL.class_eval do
+          define_method(tag){|*at, &block|
+          __dsl__packup(tag.to_s, *at, &block)
+        }
+      end
     end
 
     def __dsl__packup(tag, *at)
@@ -124,12 +127,13 @@ module Slight
       space = attrs.length > 0 ? " " : ""
       echo "<#{s_tag}#{space}#{attrs.join(" ")}"
       if self_close then
-        echo "/>"
+        echo "/>\n"
       else
+        echo ">\n"
         puts yield.to_s if block_given?
-        echo "</#{e_tag}>"
+        echo "</#{e_tag}>\n"
       end
+      nil
     end
-
   end
 end

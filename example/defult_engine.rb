@@ -7,7 +7,7 @@ module Slight
     begin
     raise IOError, "source file was not given." if ARGV.length == 0
     src_file = ARGV[0]
-    STDOUT.puts default_engine.render(File.new(src_file).read)
+    STDOUT.puts default_engine.render(src_file)
     rescue DSLException => errs
     STDERR.puts "Source File Issue: #{src_file}"
     STDERR.puts errs.message

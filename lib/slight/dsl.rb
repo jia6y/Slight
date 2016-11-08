@@ -2,11 +2,11 @@ require 'slight/utils'
 
 module Slight
   module DSLEssential
-    def br; echo "<br/>\n"; end
+    def br; echo "<br/>\n";nil; end
 
-    def hr; echo "<hr/>\n"; end
+    def hr; echo "<hr/>\n";nil; end
 
-    def title(str); echo "<title>#{str}</title>\n"; end
+    def title(str); echo "<title>#{str}</title>\n";nil; end
 
     def doctype(type)
       case type
@@ -27,6 +27,7 @@ module Slight
       when :xml
         echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
       end
+      nil
     end
 
     def use(uri, type=nil)
@@ -36,6 +37,7 @@ module Slight
       when "css"
         echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
+      nil
     end
 
     def layout_yield(target_src)
@@ -128,9 +130,10 @@ module Slight
         echo "/>\n"
       else
         echo ">\n"
-        yield.to_s if block_given?
+        puts yield.to_s if block_given?
         echo "</#{e_tag}>\n"
       end
+      nil
     end
   end
 end

@@ -41,7 +41,7 @@ print_logo
 
 buff = ""
 loop do
-  print "sl: "
+  print "sl:> "
   case line = STDIN.readline.sub(/[\n\r]/,'')
   when "\\h"
     print_help

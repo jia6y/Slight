@@ -16,9 +16,9 @@ module Slight
       #
       #   is a &gt; 0 &amp; a &lt; 10?
       #
-      # [Slight] => Add: gsub(/\s/,"&nbsp;") to support space.
+      # [Slight] => Add: gsub(/[[:blank:]]/,"&nbsp;") to support space.
       def html_escape(s)
-        s.to_s.gsub(/\s/,"&nbsp;").gsub(/&/, "&amp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
+        s.to_s.gsub(/&/, "&amp;").gsub(/[[:blank:]]/,"&nbsp;").gsub(/\"/, "&quot;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
       end
       module_function :html_escape
 

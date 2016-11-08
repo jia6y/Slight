@@ -1,10 +1,8 @@
 require 'slight/config'
 require 'slight/template'
 #require 'slight/filter/pretty_html'
-
 module Slight
   class Engine
-
     def initialize(options = {})
       @options = options
       Configuration.new(@options) do |c|
@@ -20,12 +18,13 @@ module Slight
         c.shortcut :T, "js", %q[script language="javascript"]
        #c.use PrettyHtmlOutput, :after if c.get(:pretty_html)
       end
-
       @template = Template.new(@options)
     end
 
-    def render(src_file, local_vars={})
-      src_data = File.new(src_file).read
+    def render(src_file, src_data = nil, local_vars={})
+      # src file is mianly using for identify issues for debugging
+      # if data not given then read data from src file
+      src_data ||= File.new(src_file).read
       @options[:before_filter].each do |f|
         src_data = f.do(src_data)
       end

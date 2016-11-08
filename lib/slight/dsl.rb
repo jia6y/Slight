@@ -90,7 +90,7 @@ module Slight
     private
     def __dsl__define(tag)
       DSL.class_eval do
-          define_method(tag){|*at, &block|
+        define_method(tag){|*at, &block|
           __dsl__packup(tag.to_s, *at, &block)
         }
       end
@@ -117,7 +117,7 @@ module Slight
             attrs.push a
           end
         elsif var.class == String
-          attrs.push "class=#{var}"
+          attrs.push "class=\"#{var}\""
         end
       end
 

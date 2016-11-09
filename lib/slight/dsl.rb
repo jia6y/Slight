@@ -28,6 +28,7 @@ module Slight
         echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
       end
       nil
+
     end
 
     def use(uri, type=nil)
@@ -38,15 +39,25 @@ module Slight
         echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
       nil
+
     end
 
+    # load another page into current page
     def layout_yield(target_src)
 
     end
 
-    def layout_component(target_src, auto_refresh=0)
+    # set the placeholder in current page
+    def layout_placeholder(alias = "default")
+      echo "<!--######|PLACEHOLDER-#{alias}|######-->"
+      nil
+    end
+
+    # attach itself to the placeholder in anther page
+    def layout_attach(page, alias = "default")
 
     end
+
   end
 
   class DSLException < ScriptError ; end
@@ -134,6 +145,7 @@ module Slight
         echo "</#{e_tag}>\n"
       end
       nil
+
     end
   end
 end

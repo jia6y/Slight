@@ -22,7 +22,7 @@ module Slight
     end
 
     def render(src_file, src_data = nil, local_vars={})
-      # src file is mianly using for identify issues for debugging
+      # src file is mainly using for identify issues for debugging
       # if data not given then read data from src file
       src_data ||= File.new(src_file).read
       @options[:before_filter].each do |f|

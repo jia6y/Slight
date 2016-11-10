@@ -48,13 +48,13 @@ module Slight
     end
 
     # set the placeholder in current page
-    def layout_placeholder(alias = "default")
-      echo "<!--######|PLACEHOLDER-#{alias}|######-->"
+    def layout_placeholder(ph_alias="default")
+      echo "<!--######|PLACEHOLDER-#{ph_alias}|######-->"
       nil
     end
 
     # attach itself to the placeholder in anther page
-    def layout_attach(page, alias = "default")
+    def layout_attach(page, ph_alias="default")
 
     end
 

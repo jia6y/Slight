@@ -6,14 +6,14 @@ module Slight
     def initialize(options = {})
       @options = options
       Configuration.new(@options) do |c|
-        c.shortcut :A, "css", "style"
-        c.shortcut :A, "ln", "href"
-        c.shortcut :A, "url", "href"
-        c.shortcut :A, "char", "charset"
-        c.shortcut :A, "fn", "src"
-        c.shortcut :A, "lang", "language"
-        c.shortcut :A, "xn", "xmlns"
-        c.shortcut :A, "mf", "manifest"
+        c.shortcut :A, :css, "style"
+        c.shortcut :A, :ln, "href"
+        c.shortcut :A, :url, "href"
+        c.shortcut :A, :char, "charset"
+        c.shortcut :A, :fn, "src"
+        c.shortcut :A, :lang, "language"
+        c.shortcut :A, :xn, "xmlns"
+        c.shortcut :A, :mf, "manifest"
         c.shortcut :T, "_", "div"
         c.shortcut :T, "js", %q[script language="javascript"]
        #c.use PrettyHtmlOutput, :after if c.get(:pretty_html)

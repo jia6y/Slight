@@ -32,17 +32,21 @@ def main
         fn = line.split('@')[1] || ""
         case fn.strip
         when "off"
-          puts "spool turned off".light_blue
-          @slout.close
-          @slout = STDOUT
+          unless @slout == STDOUT
+            puts "spool turned off".light_blue
+            @slout.close
+            @slout = STDOUT
+          else
+            puts "spool was alread turned off".red
+          end
         when ""
           puts "spool turned off. output path not set.".red
         else
-          puts "spool turned on".light_blue
-          puts "OUTPUT PATH=\"#{fn}\"".light_blue
           unless @slout == STDOUT then
             puts "spool was alread turned on".red
           else
+            puts "spool turned on".light_blue
+            puts "OUTPUT PATH=\"#{fn}\"".light_blue
             @slout = File.open(fn, 'w+')
           end
         end
@@ -55,11 +59,15 @@ def main
         puts "Invalid command. type \\h for help.".red
       end
     when /^@/
-      fn = line.sub('@','')
-      puts "LOAD PATH=\"#{fn}\"".light_blue
-      sl_handler(fn, is_file=true)
-      buff.clear
-      puts ""
+      if buff.size == 0 then
+        fn = line.sub('@','')
+        puts "LOAD PATH=\"#{fn}\"".light_blue
+        sl_handler(fn, is_file=true)
+        buff.clear
+        puts ""
+      else
+        buff << line << "\n"
+      end
     when ";"
       if buff.size > 0 then
         sl_handler(buff)
@@ -74,16 +82,22 @@ end
 
 def sl_handler(buff, is_file=false)
   if is_file
-    @slout.puts @default_engine.render(buff).green
+    output = @default_engine.render(buff)
   else
-    @slout.puts @default_engine.render("console",buff).green
+    output = @default_engine.render("console",buff)
+  end
+
+  if @slout == STDOUT
+    @slout.puts output.green
+  else
+    @slout.puts output
   end
 #rescue Slight::DSLException => errs
 #  STDERR.puts "Source Data Issue:".yellow
 #  STDERR.puts errs.message.red
 #  STDERR.puts [errs.inspect, errs.backtrace.join("\n")].join("\n").red
-rescue Exception => errs2
-  errno = errs2.message.split(":")[1].to_i - 1
+rescue Exception => err
+  errno = err.message.split(":")[1].to_i - 1
   buff.split("\n").each_with_index do |line, i|
     if i == errno then
       puts "=>#{i+1} #{line}".red
@@ -92,8 +106,8 @@ rescue Exception => errs2
     end
   end
   puts ""
-  STDERR.puts errs2.message.red
-  #STDERR.puts [errs2.inspect, errs2.backtrace.join("\n")].join("\n")
+  STDERR.puts err.message.red
+  #STDERR.puts [err.inspect, err.backtrace.join("\n")].join("\n")
 end
 
 def print_help

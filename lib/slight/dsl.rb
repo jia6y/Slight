@@ -3,9 +3,14 @@ require 'slight/utils'
 module Slight
   module DSLEssential
     def br; echo "<br/>\n"; end
+
     def hr; echo "<hr/>\n"; end
+
     def title(str); echo "<title>#{str}</title>\n"; end
-    def js(str); echo "<script  language=\"javascript\">\n#{str}\n</script>\n"; end
+
+    def js(str)
+      echo "<script  language=\"javascript\">\n#{str}\n</script>\n"
+    end
 
     def doctype(type)
       case type
@@ -26,6 +31,7 @@ module Slight
       when :xml
         echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
       end
+
     end
 
     def use(uri, type=nil)
@@ -35,6 +41,7 @@ module Slight
       when "css"
         echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
+
     end
 
     # load another page into current page

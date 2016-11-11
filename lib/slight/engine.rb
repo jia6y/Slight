@@ -1,7 +1,7 @@
 require 'slight/config'
 require 'slight/template'
-#require 'slight/filter/pretty_html'
 module Slight
+  class Filter; def self.do(src_data); return src_data; end; end
   class Engine
     def initialize(options = {})
       @options = options
@@ -22,7 +22,7 @@ module Slight
     end
 
     def render(src_file, src_data = nil, local_vars={})
-      # src file is mainly using for identify issues for debugging
+      # src file name is mainly using for identify issues for debugging
       # if data not given then read data from src file
       src_data ||= File.new(src_file).read
       @options[:before_filter].each do |f|

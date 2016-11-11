@@ -120,12 +120,12 @@ module Slight
         if var.class == Hash then
           var.each_pair do |a, v|
             unless a.to_sym == :_ then
-              a = attr_replacements.fetch(a, a)
-              a = v.class == String ? "#{a}=\"#{v}\"" : "#{a}=#{v.to_s}"
+              at_new = attr_replacements.fetch(a.to_sym, a)
+              at_new = v.class == String ? "#{at_new}=\"#{v}\"" : "#{at_new}=#{v.to_s}"
             else
-              a = "#{v}"
+              at_new = "#{v}"
             end
-            attrs.push a
+            attrs.push at_new
           end
         elsif var.class == String
           attrs.push "class=\"#{var}\""

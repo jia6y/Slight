@@ -1,11 +1,18 @@
-$:.unshift File.expand_path('../../lib', __FILE__)
+$:.unshift File.expand_path('../../../lib', __FILE__)
 
+require_relative 'utils.rb'
 require 'slight'
 @default_engine = Slight::Engine.new
+@slout = STDOUT
+
+at_exit{
+  puts "\n--bye--".light_blue
+  @slout.close
+}
 
 Signal.trap("INT") do
-  puts "*** Exit now ***".light_blue
   puts "Terminating...".light_blue
+  puts "*** Exit now ***".light_blue
   exit 1
 end
 
@@ -15,18 +22,41 @@ def main
   loop do
     print "sl:> "
     case line = STDIN.readline.sub(/[\n\r]/,'')
-    when "\\h"
-      print_help
-    when "\\eg"
-      print_example
-    when "\\q"
-      puts "*** Exit now ***".light_blue
-      exit 0
-    when /\\(v|version|ver)/
-      puts "ver #{Slight::VERSION}\n\n"
+    when /^\\/ # build-in commands
+      case line
+      when "\\h"
+        print_help
+      when "\\eg"
+        print_example
+      when /^\\spool@/
+        fn = line.split('@')[1] || ""
+        case fn.strip
+        when "off"
+          puts "spool turned off".light_blue
+          @slout.close
+          @slout = STDOUT
+        when ""
+          puts "spool turned off. output path not set.".red
+        else
+          puts "spool turned on".light_blue
+          puts "OUTPUT PATH=\"#{fn}\"".light_blue
+          unless @slout == STDOUT then
+            puts "spool was alread turned on".red
+          else
+            @slout = File.open(fn, 'w+')
+          end
+        end
+      when "\\q"
+        puts "*** Exit now ***".light_blue
+        exit 0
+      when /\\(v|version|ver)/
+        puts "ver #{Slight::VERSION}\n\n"
+      else
+        puts "Invalid command. type /h for help.".red
+      end
     when /^@/
       fn = line.sub('@','')
-      puts "LOAD PATH=\"#{fn}\"\n".light_blue
+      puts "LOAD PATH=\"#{fn}\"".light_blue
       sl_handler(fn, is_file=true)
       buff.clear
       puts ""
@@ -44,9 +74,9 @@ end
 
 def sl_handler(buff, is_file=false)
   if is_file
-    STDOUT.puts @default_engine.render(buff).green
+    @slout.puts @default_engine.render(buff).green
   else
-    STDOUT.puts @default_engine.render("console",buff).green
+    @slout.puts @default_engine.render("console",buff).green
   end
 rescue Slight::DSLException => errs
   STDERR.puts "Source Data Issue:".yellow
@@ -59,6 +89,7 @@ end
 
 def print_help
   puts " @file    => load and compile file dynamically. E.g. @/tmp/page.slight".green
+  puts " \\spool   => set output. E.g. Open: \\spool@/tmp/output. Turn off: \\spool@off".green
   puts " \\eg      => example".green
   puts " \\q       => exit".green
   puts " \\v       => show version (also: \\ver, \\version)".green

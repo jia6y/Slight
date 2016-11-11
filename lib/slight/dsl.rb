@@ -2,11 +2,10 @@ require 'slight/utils'
 
 module Slight
   module DSLEssential
-    def br; echo "<br/>\n";nil; end
-
-    def hr; echo "<hr/>\n";nil; end
-
-    def title(str); echo "<title>#{str}</title>\n";nil; end
+    def br; echo "<br/>\n"; end
+    def hr; echo "<hr/>\n"; end
+    def title(str); echo "<title>#{str}</title>\n"; end
+    def js(str); echo "<script  language=\"javascript\">\n#{str}\n</script>\n"; end
 
     def doctype(type)
       case type
@@ -27,8 +26,6 @@ module Slight
       when :xml
         echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
       end
-      nil
-
     end
 
     def use(uri, type=nil)
@@ -38,8 +35,6 @@ module Slight
       when "css"
         echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
-      nil
-
     end
 
     # load another page into current page
@@ -50,7 +45,6 @@ module Slight
     # set the placeholder in current page
     def layout_placeholder(ph_alias="default")
       echo "<!--######|PLACEHOLDER-#{ph_alias}|######-->"
-      nil
     end
 
     # attach itself to the placeholder in anther page
@@ -71,9 +65,9 @@ module Slight
       @output_buffer = io
     end
 
-    def puts(str); @output_buffer << html_escape(str); end
+    def puts(str); @output_buffer << html_escape(str); nil; end
 
-    def echo(str); @output_buffer << str; end
+    def echo(str); @output_buffer << str; nil; end
 
     def method_missing(fun, *param, &block)
       __dsl__define(fun)
@@ -89,7 +83,7 @@ module Slight
     end
 
     def resolve_shortcutT(shortcutT)
-      @__dsl__attr_replacements = shortcutT
+      @__dsl__tag_replacements = shortcutT
     end
 
     def resolve_blinding(blinding)
@@ -120,7 +114,7 @@ module Slight
         if var.class == Hash then
           var.each_pair do |a, v|
             unless a.to_sym == :_ then
-              at_new = attr_replacements.fetch(a.to_sym, a)
+              at_new = attr_replacements.fetch(a, a)
               at_new = v.class == String ? "#{at_new}=\"#{v}\"" : "#{at_new}=#{v.to_s}"
             else
               at_new = "#{v}"
@@ -132,7 +126,7 @@ module Slight
         end
       end
 
-      s_tag = tag_replacements.fetch(tag, tag)
+      s_tag = tag_replacements.fetch(tag.to_sym, tag)
       e_tag = s_tag.split(" ")[0]
 
       space = attrs.length > 0 ? " " : ""
@@ -144,7 +138,6 @@ module Slight
         puts yield.to_s if block_given?
         echo "</#{e_tag}>\n"
       end
-      nil
 
     end
   end

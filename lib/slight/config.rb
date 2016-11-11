@@ -22,18 +22,18 @@ module Slight
     end
 
     def use(t, flag = :before)
-      if flag == :before then 
+      if flag == :before then
         @options[:before_filter].push(t)
       else
         @options[:after_filter].push(t)
       end
     end
 
-    def shortcut(type, pattern, *replacement)
-      case(type) 
+    def shortcut(type, pattern, replacement)
+      case(type)
       when :A
         @options[:shortcutA][pattern.to_sym] = replacement
-      when :T 
+      when :T
         @options[:shortcutT][pattern.to_sym] = replacement
       end
     end
@@ -44,11 +44,3 @@ module Slight
 
   end
 end
-
-
-
-
-
-
-
-

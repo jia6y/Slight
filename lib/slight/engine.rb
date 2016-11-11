@@ -15,7 +15,7 @@ module Slight
         c.shortcut :A, :xn, "xmlns"
         c.shortcut :A, :mf, "manifest"
         c.shortcut :T, "_", "div"
-        c.shortcut :T, "js", %q[script language="javascript"]
+        #c.shortcut :T, "js", %q[script language="javascript"]
        #c.use PrettyHtmlOutput, :after if c.get(:pretty_html)
       end
       @template = Template.new(@options)

@@ -52,7 +52,7 @@ def main
       when /\\(v|version|ver)/
         puts "ver #{Slight::VERSION}\n\n"
       else
-        puts "Invalid command. type /h for help.".red
+        puts "Invalid command. type \\h for help.".red
       end
     when /^@/
       fn = line.sub('@','')
@@ -60,7 +60,7 @@ def main
       sl_handler(fn, is_file=true)
       buff.clear
       puts ""
-    when ""
+    when ";"
       if buff.size > 0 then
         sl_handler(buff)
         buff.clear
@@ -78,11 +78,20 @@ def sl_handler(buff, is_file=false)
   else
     @slout.puts @default_engine.render("console",buff).green
   end
-rescue Slight::DSLException => errs
-  STDERR.puts "Source Data Issue:".yellow
-  STDERR.puts errs.message.red
-  STDERR.puts [errs.inspect, errs.backtrace.join("\n")].join("\n").red
+#rescue Slight::DSLException => errs
+#  STDERR.puts "Source Data Issue:".yellow
+#  STDERR.puts errs.message.red
+#  STDERR.puts [errs.inspect, errs.backtrace.join("\n")].join("\n").red
 rescue Exception => errs2
+  errno = errs2.message.split(":")[1].to_i - 1
+  buff.split("\n").each_with_index do |line, i|
+    if i == errno then
+      puts "=>#{i+1} #{line}".red
+    else
+      puts "  #{i+1} #{line}".yellow
+    end
+  end
+  puts ""
   STDERR.puts errs2.message.red
   #STDERR.puts [errs2.inspect, errs2.backtrace.join("\n")].join("\n")
 end

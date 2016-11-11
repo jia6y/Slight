@@ -72,6 +72,7 @@ def main
       if buff.size > 0 then
         sl_handler(buff)
         buff.clear
+        @slout.flush
         puts ""
       end
     else

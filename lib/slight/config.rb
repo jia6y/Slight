@@ -1,6 +1,5 @@
 module Slight
   class Configuration
-
     def initialize(options = {}, &blk)
       @options = options
       @options[:cus] ||= {}
@@ -13,14 +12,8 @@ module Slight
       @options
     end
 
-    def set(k, v)
-      @options[:cus][k] = v
-    end
-
-    def get(k)
-      @options[:cus][k]
-    end
-
+    def set(k, v); @options[:cus][k] = v; end
+    def get(k); @options[:cus][k]; end
     def use(t, flag = :before)
       if flag == :before then
         @options[:before_filter].push(t)
@@ -41,6 +34,5 @@ module Slight
     def blinding(*system_fun)
       @options[:blinding] = system_fun.map(&:to_sym)
     end
-
   end
 end

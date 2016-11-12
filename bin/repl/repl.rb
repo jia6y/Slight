@@ -21,35 +21,13 @@ def main
   buff = ""
   loop do
     print "sl:> "
-    case line = STDIN.readline.sub(/[\n\r]/,'')
+    case line = STDIN.readline.sub(/[\n\r]/,'').strip
     when /^\\/ # build-in commands
       case line
       when "\\h"
         print_help
       when "\\eg"
         print_example
-      when /^\\spool@/
-        fn = line.split('@')[1] || ""
-        case fn.strip
-        when "off"
-          unless @slout == STDOUT
-            puts "spool turned off".light_blue
-            @slout.close
-            @slout = STDOUT
-          else
-            puts "spool was alread turned off".red
-          end
-        when ""
-          puts "spool turned off. output path not set.".red
-        else
-          unless @slout == STDOUT then
-            puts "spool was alread turned on".red
-          else
-            puts "spool turned on".light_blue
-            puts "OUTPUT PATH=\"#{fn}\"".light_blue
-            @slout = File.open(fn, 'w+')
-          end
-        end
       when "\\q"
         puts "*** Exit now ***".light_blue
         exit 0
@@ -67,6 +45,28 @@ def main
         puts ""
       else
         buff << line << "\n"
+      end
+    when /^>@/
+      fn = line.split('@')[1] || ""
+      case fn.strip
+      when "off"
+        unless @slout == STDOUT
+          puts "spool turned off".light_blue
+          @slout.close
+          @slout = STDOUT
+        else
+          puts "spool was alread turned off".red
+        end
+      when ""
+        puts "spool turned off. output path not set.".red
+      else
+        unless @slout == STDOUT then
+          puts "spool was alread turned on".red
+        else
+          puts "spool turned on".light_blue
+          puts "OUTPUT PATH=\"#{fn}\"".light_blue
+          @slout = File.open(fn, 'w+')
+        end
       end
     when ";"
       if buff.size > 0 then
@@ -113,7 +113,7 @@ end
 
 def print_help
   puts " @file    => load and compile file dynamically. E.g. @/tmp/page.slight".green
-  puts " \\spool   => set output. E.g. Open: \\spool@/tmp/output. Turn off: \\spool@off".green
+  puts " >@       => set output. E.g. Open: >@/tmp/output. Turn off: >@off".green
   puts " \\eg      => example".green
   puts " \\q       => exit".green
   puts " \\v       => show version (also: \\ver, \\version)".green
@@ -122,7 +122,6 @@ end
 
 def print_example
   eg1_in=%{
-1:
     html do
       head do
         titile "My Page"
@@ -147,7 +146,6 @@ def print_example
   }.green
 
   eg2_in=%{
-2:
     div("panel panel-lg", css:"color:green"){
       span{"Hello World"}
     }

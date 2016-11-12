@@ -9,7 +9,7 @@ module Slight
     def title(str); echo "<title>#{str}</title>\n"; end
 
     def js(str)
-      echo "<script  language=\"javascript\">\n#{str}\n</script>\n"
+      echo "<script language=\"javascript\">\n#{str}\n</script>\n"
     end
 
     def doctype(type)
@@ -46,18 +46,24 @@ module Slight
 
     # load another page into current page
     def layout_yield(target_src)
-
+      #eval(File.new(target_src).read, binding_scope, target_src, __LINE__ - 48)
+      #@load_history ||= {} # prevernt recursive page load
+      #unless @load_history[target_src] then
+        self.instance_eval(File.new(target_src).read, target_src, __LINE__ - 48)
+      # @load_history[target_src] = true
+      #else
+      #  echo "<!--recursive page loading deteced, ignore.-->"
+      #end
     end
 
     # set the placeholder in current page
-    def layout_placeholder(ph_alias="default")
-      echo "<!--######|PLACEHOLDER-#{ph_alias}|######-->"
-    end
+    #def layout_placeholder(ph_alias="default")
+    #  echo "<!--######|PLACEHOLDER-#{ph_alias}|######-->"
+    #end
 
     # attach itself to the placeholder in anther page
-    def layout_attach(page, ph_alias="default")
-
-    end
+    #def layout_attach(page, ph_alias="default")
+    #end
 
   end
 
@@ -70,6 +76,7 @@ module Slight
 
     def initialize(io)
       @output_buffer = io
+      #@root = page_node.new("root")
     end
 
     def puts(str); @output_buffer << html_escape(str); nil; end

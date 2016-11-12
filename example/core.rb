@@ -1,7 +1,7 @@
 $:.unshift File.expand_path('../../lib', __FILE__)
 require 'slight/dsl'
 
-module Slight 
+module Slight
   class DSL
     def run
         doctype :html
@@ -12,9 +12,9 @@ module Slight
             use "/script/jquery.js"
             use "/script/angular.js"
           end
-          body do 
-            div "btn btn-primary" do 
-              nav "nav nav-pill", id:"NavMenu", css:"color: red" do 
+          body do
+            div "panel" do
+              nav "nav nav-pill", id:"NavMenu", css:"color: red" do
                 img! src:"/images/icon1.png"
               end
             end

@@ -3,8 +3,8 @@ require 'slight/dsl'
 module Slight
   class Template
     def initialize(options = {})
-      @output_buffer = ""
       @options = options
+      @output_buffer = @options[:io_out] || ""
       @dsl = DSL.new(@output_buffer)
 
       @dsl.resolve_shortcutA(@options[:shortcutA])

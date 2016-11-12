@@ -29,7 +29,7 @@ module Slight
       when :transitional
         echo %q[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">] + "\n"
       when :xml
-        echo %q[<?xml version="1.0" encoding="utf-8" ?>\n]
+        echo %q[<?xml version="1.0" encoding="utf-8" ?>] + "\n"
       end
 
     end

@@ -72,7 +72,7 @@ def main
       if buff.size > 0 then
         sl_handler(buff)
         buff.clear
-        @slout.flush
+        @slout.flush #if @slout == STDOUT
         puts ""
       end
     else
@@ -93,10 +93,6 @@ def sl_handler(buff, is_file=false)
   else
     @slout.puts output
   end
-#rescue Slight::DSLException => errs
-#  STDERR.puts "Source Data Issue:".yellow
-#  STDERR.puts errs.message.red
-#  STDERR.puts [errs.inspect, errs.backtrace.join("\n")].join("\n").red
 rescue Exception => err
   errno = err.message.split(":")[1].to_i - 1
   buff.split("\n").each_with_index do |line, i|

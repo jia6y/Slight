@@ -12,7 +12,10 @@ html do
         img! src:"resource/images/icon1.png"
       end
     end
-    div do
+    div css:'border 1 bold blue' do
+      layout_yield("#{File.dirname(__FILE__)}/component.slight.rb")
+    end
+    div css:'border 1 bold green' do
       layout_yield("#{File.dirname(__FILE__)}/component.slight.rb")
     end
     span do

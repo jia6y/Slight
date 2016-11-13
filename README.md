@@ -150,7 +150,7 @@ e.g.
   }
 =>
   <script language="javascript">
-    onsole.log("hello slight");
+    console.log("hello slight");
   </script>
 
 
@@ -190,8 +190,8 @@ conf = Slight::Configuration.new do |c|
   c.blinding     :p, :select, :puts, :send, :class
 
   # use Filter
-  # Before Filter accepts original source pass the output to Slight compiler.
-  # After Filter accepts output from Slight compiler pass the output to end user.
+  # Before-Filters accept original source pass the output to Slight compiler.
+  # After-Filters accept output from Slight compiler pass the output to end user.
   c.use     FilterA, :before
   c.use     FilterB, :after
 end

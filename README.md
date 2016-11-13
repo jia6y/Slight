@@ -91,7 +91,7 @@ Submit</button>
 
 #### [Syntax]
 
-- Pure Syntax
+- Pure Ruby Syntax
 
 ```
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end

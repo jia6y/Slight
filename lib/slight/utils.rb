@@ -34,24 +34,5 @@ module Slight
         s.to_s.gsub(/[^a-zA-Z0-9_\-.]/n){ sprintf("%%%02X", $&.unpack("C")[0]) }
       end
       module_function :url_encode
-
-      class PageNode
-        def initialize(fn, pnode  = nil)
-          @fn = fn
-        end
-
-        def root?
-          pnode == nil
-        end
-
-        def recursive?
-          _node = pnode
-          while(!_node.root?)
-            return true if _node.fn == fn
-            _node = _node.pnode
-          end
-          false
-        end
-      end
   end
 end

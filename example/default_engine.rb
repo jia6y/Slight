@@ -10,13 +10,17 @@ module Slight
     }
 
     begin
-      raise IOError, "source file was not given." if ARGV.length == 0
-      src_file = ARGV[0]
-      io_out = File.open("#{ARGV[1]}", 'w') if ARGV.size == 2
-      io_out.puts default_engine.render(src_file)
+      if ARGV[0] == "-v" then
+        io_out.puts VERSION
+      else
+        raise IOError, "source file was not given." if ARGV.length == 0
+        src_file = ARGV[0]
+        io_out = File.open("#{ARGV[1]}", 'w') if ARGV.size == 2
+        io_out.puts default_engine.render(src_file)
+      end
     rescue Exception => err
       STDERR.puts err.message
-      STDERR.puts [err.inspect, err.backtrace.join("\n")].join("\n")
+      #STDERR.puts [err.inspect, err.backtrace.join("\n")].join("\n")
       exit 1
     end
 

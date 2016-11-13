@@ -21,16 +21,16 @@ gem install ./slight-lang-1.0.1.gem
 #### [Command]
 ###### Slight
 ```
-Slight [-v] <source> [<output>]
+slight [-v] <source> [<output>]
 
 e.g.
-Slight index.slight index.htm
+slight index.slight index.htm
 => index.htm
 
-Slight index.slight
+slight index.slight
 => <tag>abcde</tag>
 
-Slight -v
+slight -v
 => v 1.0.1
 ```
 

@@ -1,5 +1,5 @@
 # Slight-lang
-A light and sweet template language.
+A light and sweet template language. (in progress, 90%)
 
 ## Description
 Slight is a very simple and easy to use template language.
@@ -72,7 +72,7 @@ LOAD PATH="../../example/component.slight.rb"
 submit</button>
 
 
-#redirect output to file
+# redirect output to file
 sl:> >@output.htm  (>@off to turn off)
 spool turned on
 OUTPUT PATH="output.htm"
@@ -171,3 +171,5 @@ conf = Slight::Configuration.new do |c|
   c.use     FilterB, :after
 end
 ```
+
+Any questions or suggestions are welcome. You can reach me at: nemo1023#gmail.com

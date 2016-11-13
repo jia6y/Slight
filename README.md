@@ -124,6 +124,7 @@ end
   mf    => "manifest"
 
 e.g.
+
   div css:'border: 10 solid blue' do; "hello"; end
 =>
   <div style="border: 10 solid blue">
@@ -131,12 +132,36 @@ e.g.
   <div>
 
 [tag]
-  _     => "div"
+  _     => "<div>$content</div>"
+  js    => "<script language='javscript'>$content</script>"
+  use   => "<script type='text/javascript' src=''$content'></script>"
+  use   => "<link rel='stylesheet' href='$content'></link>"
+  # depends on which file loaded 'use' will determine which tag to replace.
 
 e.g.
+
   _ do; "hello"; end
 =>
   <div>hello</div>
+
+
+  js %{
+    console.log("hello slight");
+  }
+=>
+  <script language="javascript">
+    onsole.log("hello slight");
+  </script>
+
+
+  use 'resource/bootstrap.js'
+=>
+  <script type='text/javascript' src='resource/bootstrap.js'></script>
+
+
+  use 'resource/bootstrap.css'
+=>
+  <link rel='stylesheet' href='resource/bootstrap.css'></link>
 ```
 
 #### [Customize]

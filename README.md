@@ -170,7 +170,7 @@ e.g.
 ```
 conf = Slight::Configuration.new do |c|
   c.shortcut :A, :endpoint, "href"  #add an attribute shortcut
-  c.shortcut :T, "box", "div"       #add a tag shotcut
+  c.shortcut :T, "box", "div"       #add a tag shortcut
 end
 
 custom_engine = Slight::Engine.new(conf)

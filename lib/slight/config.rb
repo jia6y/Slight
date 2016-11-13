@@ -14,6 +14,7 @@ module Slight
 
     def set(k, v); @options[:cus][k] = v; end
     def get(k); @options[:cus][k]; end
+    def setIO(io_out);  @options[:io_out] = io_out; end
     def use(t, flag = :before)
       if flag == :before then
         @options[:before_filter].push(t)

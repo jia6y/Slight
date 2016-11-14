@@ -79,7 +79,7 @@ OUTPUT PATH="output.htm"
 ```
 - Run Slight in REPL
 
-```
+```ruby
 sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
 sl:>    "Submit"
 sl:> end

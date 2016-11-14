@@ -20,7 +20,7 @@ gem install ./slight-lang-1.0.1.gem
 
 #### [Command]
 ###### Slight
-```
+```bash
 slight [-v] <source> [<output>]
 
 e.g.
@@ -40,7 +40,7 @@ slsh
 ```
 - build-in commands
 
-```
+```ruby
 # help
 sl:> \h
  @file    => load and compile file dynamically. E.g. @/tmp/page.slight
@@ -93,7 +93,7 @@ Submit</button>
 
 - Pure Ruby Syntax
 
-```
+```ruby
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end
 
 e.g.
@@ -112,7 +112,7 @@ end
 
 - Default Build-in Html Shortcuts
 
-```  
+```ruby  
 [attribute]
   css   => "style"
   ln    => "href"
@@ -167,7 +167,7 @@ e.g.
 #### [Customize]
 - general usage (more details please refer to example)
 
-```
+```ruby
 conf = Slight::Configuration.new do |c|
   c.shortcut :A, :endpoint, "href"  #add an attribute shortcut
   c.shortcut :T, "box", "div"       #add a tag shortcut
@@ -178,7 +178,7 @@ custom_engine = Slight::Engine.new(conf)
 
 - supported configuration
 
-```
+```ruby
 conf = Slight::Configuration.new do |c|
   c.shortcut :A, :endpoint, "href"  #add an attribute shortcut
   c.shortcut :T, "box", "div"       #add a tag shotcut

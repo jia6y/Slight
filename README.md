@@ -83,7 +83,7 @@ OUTPUT PATH="output.htm"
 sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
 sl:>    "Submit"
 sl:> end
-sl:> ;   (Enter ; to run the script)
+sl:> ;   (Enter ';' to run the script)
 
 <button class="btn btn-success btn-lg" name="btn_submit" type="submit">
 Submit</button>

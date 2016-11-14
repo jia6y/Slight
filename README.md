@@ -134,7 +134,7 @@ e.g.
 [tag]
   _     => "<div>$content</div>"
   js    => "<script language='javscript'>$content</script>"
-  use   => "<script type='text/javascript' src=''$content'></script>"
+  use   => "<script type='text/javascript' src='$content'></script>"
   use   => "<link rel='stylesheet' href='$content'></link>"
   # depends on which file loaded 'use' will determine which tag to replace.
 

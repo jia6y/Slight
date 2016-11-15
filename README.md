@@ -9,7 +9,7 @@ Advantage of Slight:
 - Nearly 0 learning cost
 
 ## Quick Start
-#### [Installtion]
+#### [Installation]
 ```
 gem install slight-lang  (not ready)
 

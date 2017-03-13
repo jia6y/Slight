@@ -1,5 +1,5 @@
 # Slight-lang
-A light and sweet template language. (in progress, 90%)
+A light and sweet template language.
 
 ## Description
 Slight is a very simple and easy to use template language.
@@ -11,7 +11,7 @@ Advantage of Slight:
 ## Quick Start
 #### [Installation]
 ```
-gem install slight-lang  (not ready)
+gem install slight-lang
 
 # you can also build gem from gemspec
 gem build slight.gemspec

@@ -4,7 +4,6 @@ html do
     title "Example"
     use "resource/css/bootstrap.css"
     use "resource/script/jquery.js"
-    use "resource/script/angular.js"
   end
   body do
     div "panel" do
@@ -18,11 +17,7 @@ html do
     div css:'border 1 bold green' do
       layout_yield("#{File.dirname(__FILE__)}/component.slight.rb")
     end
-    span do
-      "Hello Span"
-    end
     br
-    hr
   end
 
   js %{

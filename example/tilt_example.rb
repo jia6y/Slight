@@ -8,8 +8,7 @@ script = %{
 }
 
 @btn_txt = 'Click Me'
+body = Proc.new { script }
 
-template = Tilt.new(__FILE__, 6, {}，Proc.new { script })
-
-scope = { :title => "Hello Liquid Templates" }
+template = Tilt.new(__FILE__, 6, {}，&body)
 template.render(self, :btn_size => "btn lg")

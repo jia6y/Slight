@@ -21,13 +21,13 @@ module Slight
       @template = Template.new(@options)
     end
 
-    def render(src_file, src_data = nil, local_vars={}, &script)
+    def render(src_file, src_data = nil, local_vars={})
       # src file name is mainly using for identify issues for debugging
       # if data not given then read data from src file
 
-      # Script > Data > File
+      # Data > File
 
-      src_data = script.call if block_given?
+      #src_data = script.call if block_given?
       src_data ||= File.new(src_file).read
       
       @options[:before_filter].each do |f|

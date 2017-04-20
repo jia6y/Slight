@@ -11,4 +11,4 @@ script = %q{
 body = Proc.new { script }
 
 template = Tilt.new('tilt_example.rb', 4, {}, &body)
-puts template.render(self, :btn_size => "btn lg")
+puts template.render(self, :btn_size => "btn-lg")

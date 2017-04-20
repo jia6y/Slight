@@ -1,3 +1,4 @@
+require 'tilt'
 require 'tilt/template'
 require 'slight'
 

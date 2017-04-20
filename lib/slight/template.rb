@@ -14,11 +14,21 @@ module Slight
 
     def render(src_data, src_file, local_vars = {})
       @output_buffer.clear
+
       local_vars.each_pair do |key, value|
-        @dsl.binding_scope.local_variable_set(key.to_sym, value)
+        if key == :__scope then
+          scope = value
+          scope_vars = scope.instance_variables
+          scope_vars.each do |var|
+            @dsl.instance_variable_set(var, scope.instance_variable_get(var))
+          end
+        else
+          @dsl.resolve_local(key, value)
+        end
       end
+
       begin
-        eval(src_data, @dsl.binding_scope, src_file, __LINE__ - 20)
+        @dsl.instance_eval(src_data, src_file, __LINE__ - 20)
       rescue => ex
         raise DSLException.new(ex.message)
       end

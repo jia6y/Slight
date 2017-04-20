@@ -109,9 +109,17 @@ module Slight
       end
     end
 
+    def resolve_local(var,val)
+      self.singleton_class.class_eval do
+        define_method(var.to_sym){
+          return val
+        }
+      end
+    end
+
     private
     def __dsl__define(tag)
-      DSL.class_eval do
+      self.singleton_class.class_eval do
         define_method(tag){|*at, &block|
           __dsl__packup(tag.to_s, *at, &block)
         }

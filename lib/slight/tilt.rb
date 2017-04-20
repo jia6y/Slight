@@ -12,10 +12,11 @@ module Tilt
     end
 	
     def evaluate(scope, locals, &block)
-      scope_vars = scope.instance_variables
-      scope_vars.each do |var|
-        @engine.instance_variable_set(var, scope.instance_variable_get(var))
-      end
+      #scope_vars = scope.instance_variables
+      #scope_vars.each do |var|
+      #  @engine.instance_variable_set(var, scope.instance_variable_get(var))
+      #end
+      locals[:__scope] = scope
     	@output ||= @engine.render(file, data, locals)
     end
 	end

@@ -1,9 +1,7 @@
-require 'slght/tilt'
 require 'tilt'
+require 'slght/tilt'
 
-
-
-template_script = %{
+script = %{
 	div "btn btn-succes #{btn_size}" do 
 		@btn_txt
 	end
@@ -11,16 +9,7 @@ template_script = %{
 
 @btn_txt = 'Click Me'
 
-template = Tilt.new(__FILE__, 6, {})
-#<Tilt::LiquidTemplate @file='hello.liquid'>
+template = Tilt.new(__FILE__, 6, {}，Proc.new { script })
+
 scope = { :title => "Hello Liquid Templates" }
-template.render(self, :world => "Liquid")
-    => "
-    <html>
-      <head>
-        <title>Hello Liquid Templates</title>
-      </head>
-      <body>
-        <h1>Hello Liquid!</h1>
-      </body>
-    </html>"
+template.render(self, :btn_size => "btn lg")

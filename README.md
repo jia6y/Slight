@@ -17,7 +17,7 @@ gem install slight-lang
 ```
 
 #### [Usage]
-###### Command
+###### - Command
 ```bash
 root@ubuntu:/# slight [-v] <source> [<output>]
 
@@ -25,7 +25,7 @@ root@ubuntu:/# slight [-v] <source> [<output>]
 # => index.htm
 ```
 
-###### REPL
+###### - REPL
 ```bash
 root@ubuntu:/# slsh
 ```
@@ -50,7 +50,7 @@ sl:> \h
 
 #### [Syntax]
 
-###### Pure Ruby Syntax
+###### - Pure Ruby Syntax
 
 ```ruby
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end
@@ -62,22 +62,18 @@ div "panel panel-lg", css: "border: 5 dotted green", id: "msgbox" do
   end
 end
 ```
-###### HTML attributes and tags are naturally supported
+###### - HTML attributes and tags are naturally supported
 
-###### Support Shortcuts for HTML tags and attributes(can be customized)
+###### - Support Shortcuts for HTML tags and attributes(can be customized)
 
 - Attribute Shortcuts
 
-| shortcut | attribute |
-|-------|--------------|
-| css | style |
-| ln | href |
-| url | href |
-| char | charset |
-| fn | src |
-| lang | language |
-| xn | xmlns |
-| mf | manifest |
+| shortcut | attribute | shortcut | attribute |
+|-------|--------------| -------|--------------|
+| :css | style | :fn | src |
+| :ln | href | :lang | language |
+| :url | href | :xn | xmlns |
+| :char | charset | :mf | manifest |
 
 ```ruby  
 # example
@@ -110,7 +106,7 @@ end
 ```
 
 #### [Customization]
-###### Usage (more details please refer to example)
+###### - Usage (more details please refer to example)
 
 ```ruby
 conf = Slight::Configuration.new do |c|
@@ -121,7 +117,7 @@ end
 custom_engine = Slight::Engine.new(conf)
 ```
 
-###### Configuration Options
+###### - Configuration Options
 
 ```ruby
 shortcut :A, :endpoint, "href"  #add an attribute shortcut

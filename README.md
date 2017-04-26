@@ -19,7 +19,7 @@ gem install slight-lang
 #### [Usage]
 ###### - Command
 ```bash
-root@ubuntu:/ slight [-v] <source> [<output>]
+root@ubuntu: slight [-v] <source> [<output>]
 
 # slight index.slight index.htm
 # => index.htm
@@ -27,7 +27,7 @@ root@ubuntu:/ slight [-v] <source> [<output>]
 
 ###### - REPL
 ```bash
-root@ubuntu:/ slsh
+root@ubuntu: slsh
 ```
 ```ruby
 sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do

@@ -1,5 +1,6 @@
 # Slight-lang
 A light and sweet template language.
+
 with:
 - Pure Ruby syntax
 - Html friendly
@@ -11,8 +12,8 @@ with:
 gem install slight-lang
 
 # you can also build gem from gemspec
-gem build slight.gemspec
-gem install ./slight-lang-1.0.5.gem
+# gem build slight.gemspec
+# gem install ./slight-lang-1.0.5.gem
 ```
 
 #### [Usage]
@@ -43,16 +44,9 @@ sl:>    "Submit"
 sl:> end
 sl:> ;   (Enter ';' to run the script)
 
-<button class="btn btn-success btn-lg" name="btn_submit" type="submit">
-Submit</button>
-
-
-# compile slight file
+# compile from file
 sl:> @../../example/component.slight.rb
 LOAD PATH="../../example/component.slight.rb"
-<button class="btn btn-success btn-lg">
-submit</button>
-
 
 # redirect output to file
 sl:> >@output.htm  (>@off to turn off)
@@ -79,7 +73,8 @@ end
 ```
 - All html tags are supported
 
-Attribute Shortcuts
+-- Attribute Shortcuts
+
 | shortcut | attribute |
 |-------|--------------|
 | css | style |
@@ -94,12 +89,13 @@ Attribute Shortcuts
 ```ruby  
 # example
   div css:'border: 10 solid blue' do; "hello"; end
-#  <div style="border: 10 solid blue">
-#    Hello
-#  <div>
+# <div style="border: 10 solid blue">
+#   Hello
+# <div>
 ```
 
-Html Tag Shortcuts
+-- Html Tag Shortcuts
+
 | shortcut | attribute |
 |-------|--------------|
 | _ | <div>$content</div> |
@@ -109,18 +105,15 @@ Html Tag Shortcuts
 
 ```ruby
 # example
-  _ do; "hello"; end
-#  <div>hello</div>
-
   js %{
     console.log("hello slight");
   }
-#  <script language="javascript">
-#    console.log("hello slight");
-#  </script>
+# <script language="javascript">
+#   console.log("hello slight");
+# </script>
 
   use 'resource/bootstrap.js'
-#  <script type='text/javascript' src='resource/bootstrap.js'></script>
+# <script type='text/javascript' src='resource/bootstrap.js'></script>
 ```
 
 #### [Customization]

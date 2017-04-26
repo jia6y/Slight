@@ -1,12 +1,9 @@
 # Slight-lang
 A light and sweet template language.
-
-## Description
-Slight is a very simple and easy to use template language.
-Advantage of Slight:
+with:
 - Pure Ruby syntax
 - Html friendly
-- Nearly 0 learning cost
+- 0 learning cost
 
 ## Quick Start
 #### [Installation]
@@ -15,31 +12,22 @@ gem install slight-lang
 
 # you can also build gem from gemspec
 gem build slight.gemspec
-gem install ./slight-lang-1.0.1.gem
+gem install ./slight-lang-1.0.5.gem
 ```
 
-#### [Command]
-###### Slight
+#### [Usage]
+###### Command
 ```bash
-slight [-v] <source> [<output>]
+root@ubuntu:/# slight [-v] <source> [<output>]
 
-e.g.
-slight index.slight index.htm
-=> index.htm
-
-slight index.slight
-=> <tag>abcde</tag>
-
-slight -v
-=> v 1.0.1
+# slight index.slight index.htm
+# => index.htm
 ```
 
 ###### REPL
+```bash
+root@ubuntu:/# slsh
 ```
-slsh
-```
-- build-in commands
-
 ```ruby
 # help
 sl:> \h
@@ -49,20 +37,14 @@ sl:> \h
  \q       => exit
  \v       => show version (also: \ver, \version)
 
+# example
+sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
+sl:>    "Submit"
+sl:> end
+sl:> ;   (Enter ';' to run the script)
 
-# exit
-sl:> \q  (ctrl + c)
-*** Exit now ***
---bye--
-
-
-# show example
-sl:> \eg
-    button "btn btn-primary" do
-      "Click me"
-    end
-=>
-    <button class="btn btn-primary">Click me</button>
+<button class="btn btn-success btn-lg" name="btn_submit" type="submit">
+Submit</button>
 
 
 # compile slight file
@@ -77,17 +59,6 @@ sl:> >@output.htm  (>@off to turn off)
 spool turned on
 OUTPUT PATH="output.htm"
 ```
-- Run Slight in REPL
-
-```ruby
-sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
-sl:>    "Submit"
-sl:> end
-sl:> ;   (Enter ';' to run the script)
-
-<button class="btn btn-success btn-lg" name="btn_submit" type="submit">
-Submit</button>
-```
 
 #### [Syntax]
 
@@ -96,7 +67,7 @@ Submit</button>
 ```ruby
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end
 
-e.g.
+# example
 div "panel panel-lg", css: "border: 5 dotted green", id: "msgbox" do
   button "btn btn-primary" do
     "Ok"
@@ -105,67 +76,55 @@ div "panel panel-lg", css: "border: 5 dotted green", id: "msgbox" do
     "Cancel"
   end
 end
-
-(of course {} syntax is also spported)
 ```
 - All html tags are supported
 
-- Default Build-in Html Shortcuts
+Attribute Shortcuts
+| shortcut | attribute |
+|-------|--------------|
+| css | style |
+| ln | href |
+| url | href |
+| char | charset |
+| fn | src |
+| lang | language |
+| xn | xmlns |
+| mf | manifest |
 
 ```ruby  
-[attribute]
-  css   => "style"
-  ln    => "href"
-  url   => "href"
-  char  => "charset"
-  fn    => "src"
-  lang  => "language"
-  xn    => "xmlns"
-  mf    => "manifest"
-
-e.g.
-
+# example
   div css:'border: 10 solid blue' do; "hello"; end
-=>
-  <div style="border: 10 solid blue">
-    Hello
-  <div>
+#  <div style="border: 10 solid blue">
+#    Hello
+#  <div>
+```
 
-[tag]
-  _     => "<div>$content</div>"
-  js    => "<script language='javscript'>$content</script>"
-  use   => "<script type='text/javascript' src='$content'></script>"
-  use   => "<link rel='stylesheet' href='$content'></link>"
-  # depends on which file loaded 'use' will determine which tag to replace.
+Html Tag Shortcuts
+| shortcut | attribute |
+|-------|--------------|
+| _ | <div>$content</div> |
+| js | <script language='javscript'>$content</script> |
+| use | <script type='text/javascript' src='$content'></script> |
+| use | <link rel='stylesheet' href='$content'></link> |
 
-e.g.
-
+```ruby
+# example
   _ do; "hello"; end
-=>
-  <div>hello</div>
-
+#  <div>hello</div>
 
   js %{
     console.log("hello slight");
   }
-=>
-  <script language="javascript">
-    console.log("hello slight");
-  </script>
-
+#  <script language="javascript">
+#    console.log("hello slight");
+#  </script>
 
   use 'resource/bootstrap.js'
-=>
-  <script type='text/javascript' src='resource/bootstrap.js'></script>
-
-
-  use 'resource/bootstrap.css'
-=>
-  <link rel='stylesheet' href='resource/bootstrap.css'></link>
+#  <script type='text/javascript' src='resource/bootstrap.js'></script>
 ```
 
-#### [Customize]
-- general usage (more details please refer to example)
+#### [Customization]
+- Usage (more details please refer to example)
 
 ```ruby
 conf = Slight::Configuration.new do |c|
@@ -185,7 +144,6 @@ conf = Slight::Configuration.new do |c|
 
   # set output IO
   c.setIO        STDOUT
-
   # undef ruby methods in slight context
   c.blinding     :p, :select, :puts, :send, :class
 
@@ -197,7 +155,7 @@ conf = Slight::Configuration.new do |c|
 end
 ```
 
-#### [Tilt]
+#### [Tilt Intergration]
 - Working with Tilt
 ```ruby
 require 'slight/tilt'

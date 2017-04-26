@@ -30,15 +30,6 @@ root@ubuntu:/# slight [-v] <source> [<output>]
 root@ubuntu:/# slsh
 ```
 ```ruby
-# help
-sl:> \h
- @file    => load and compile file dynamically. E.g. @/tmp/page.slight
- >@       => set output. E.g. Open: >@/tmp/output. Turn off: >@off
- \eg      => example
- \q       => exit
- \v       => show version (also: \ver, \version)
-
-# example
 sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
 sl:>    "Submit"
 sl:> end
@@ -48,15 +39,18 @@ sl:> ;   (Enter ';' to run the script)
 sl:> @../../example/component.slight.rb
 LOAD PATH="../../example/component.slight.rb"
 
-# redirect output to file
-sl:> >@output.htm  (>@off to turn off)
-spool turned on
-OUTPUT PATH="output.htm"
+# help
+sl:> \h
+ @file    => load and compile file dynamically. E.g. @/tmp/page.slight
+ >@       => set output. E.g. Open: >@/tmp/output. Turn off: >@off
+ \eg      => example
+ \q       => exit
+ \v       => show version (also: \ver, \version)
 ```
 
 #### [Syntax]
 
-- Pure Ruby Syntax
+###### Pure Ruby Syntax
 
 ```ruby
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end
@@ -66,14 +60,13 @@ div "panel panel-lg", css: "border: 5 dotted green", id: "msgbox" do
   button "btn btn-primary" do
     "Ok"
   end
-  button "btn btn-default" do
-    "Cancel"
-  end
 end
 ```
-- All html tags are supported
+###### HTML attributes and tags are naturally supported
 
--- Attribute Shortcuts
+###### Support Shortcuts for HTML tags and attributes(can be customized)
+
+- Attribute Shortcuts
 
 | shortcut | attribute |
 |-------|--------------|
@@ -94,14 +87,14 @@ end
 # <div>
 ```
 
--- Html Tag Shortcuts
+- Html Tag Shortcuts
 
 | shortcut | attribute |
 |-------|--------------|
-| _ | <div>$content</div> |
-| js | <script language='javscript'>$content</script> |
-| use | <script type='text/javascript' src='$content'></script> |
-| use | <link rel='stylesheet' href='$content'></link> |
+| _ | &lt;div&gt;$content&lt;/div&gt; |
+| js | &lt;script language='javscript'&gt;$content&lt;/script&gt; |
+| use | &lt;script type='text/javascript' src='$content'&gt;&lt;/script&gt; |
+| use | &lt;link rel='stylesheet' href='$content'&gt;&lt;/link&gt; |
 
 ```ruby
 # example
@@ -117,7 +110,7 @@ end
 ```
 
 #### [Customization]
-- Usage (more details please refer to example)
+###### Usage (more details please refer to example)
 
 ```ruby
 conf = Slight::Configuration.new do |c|
@@ -128,28 +121,24 @@ end
 custom_engine = Slight::Engine.new(conf)
 ```
 
-- supported configuration
+###### Configuration Options
 
 ```ruby
-conf = Slight::Configuration.new do |c|
-  c.shortcut :A, :endpoint, "href"  #add an attribute shortcut
-  c.shortcut :T, "box", "div"       #add a tag shotcut
-
-  # set output IO
-  c.setIO        STDOUT
-  # undef ruby methods in slight context
-  c.blinding     :p, :select, :puts, :send, :class
-
-  # use Filter
-  # Before-Filters accept original source pass the output to Slight compiler.
-  # After-Filters accept output from Slight compiler pass the output to end user.
-  c.use     FilterA, :before
-  c.use     FilterB, :after
-end
+shortcut :A, :endpoint, "href"  #add an attribute shortcut
+shortcut :T, "box", "div"       #add a tag shortcut
+# set output IO
+setIO        STDOUT
+# undef ruby methods in slight context
+blinding     :p, :select, :puts, :send, :class
+# use Filter
+# Before-Filters accept original source pass the output to Slight compiler.
+# After-Filters accept output from Slight compiler pass the output to end user.
+use     FilterA, :before
+use     FilterB, :after
 ```
 
 #### [Tilt Intergration]
-- Working with Tilt
+##### Working with Tilt
 ```ruby
 require 'slight/tilt'
 

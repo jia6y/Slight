@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
       gem.authors       = ["oliver.yu"]
       gem.email         = ["nemo1023@gmail.com"]
       gem.description   = %q{A light and sweet template language}
-      gem.summary       = %q{The goal of this is to use ruby syntax and html style shotcut to write template.}
+      gem.summary       = %q{The goal of this is to use pure ruby syntax to write template.}
       gem.homepage      = "https://github.com/OliversCat/Slight"
       gem.files         = `git ls-files`.split($\)
       #gem.files         = dir('.')

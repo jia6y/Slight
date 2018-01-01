@@ -36,12 +36,11 @@ module Slight
 
     def use(uri, type=nil)
       case type ||= uri.split('.')[-1]
-      when "js"
+      when "js",:js
         echo "<script type=\"text/javascript\" src=\"#{uri}\"></script>\n"
-      when "css"
+      when "css",:css
         echo "<link rel=\"stylesheet\" href=\"#{uri}\"></link>\n"
       end
-
     end
 
     # load another page into current page

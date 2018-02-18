@@ -65,7 +65,7 @@ module Slight
     def inc(*preloads)
       preloads << "defaults" if preloads.size == 0
       preloads.each{ |target|
-        layout_yield(target.to_s)
+        layout_yield(target.to_s + ".rb")
       }
     end
 

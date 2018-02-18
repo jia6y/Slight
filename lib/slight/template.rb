@@ -28,7 +28,7 @@ module Slight
       end
 
       begin
-        @dsl.instance_eval(src_data, src_file, __LINE__ - 20)
+        @dsl.instance_eval(src_data, src_file, __LINE__ - 30)
       rescue => ex
         raise DSLException.new(ex.message)
       end

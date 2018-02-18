@@ -58,6 +58,17 @@ module Slight
       nil
     end
 
+    def layout(target)
+      layout_yield(target.to_s + ".slight")
+    end
+
+    def inc(*preloads)
+      preloads << "defaults" if preloads.size == 0
+      preloads.each{ |target|
+        layout_yield(target.to_s)
+      }
+    end
+
     # set the placeholder in current page
     #def layout_placeholder(ph_alias="default")
     #  echo "<!--######|PLACEHOLDER-#{ph_alias}|######-->"

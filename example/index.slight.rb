@@ -1,7 +1,8 @@
+inc
 doctype :html
 html do
   head do
-    title "Example"
+    title "Example: #{@var1}"
     use "resource/css/bootstrap.css"
     use "resource/script/jquery.js"
   end

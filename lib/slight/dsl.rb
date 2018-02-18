@@ -59,6 +59,7 @@ module Slight
     end
 
     def layout(target)
+      yield if block_given?
       layout_yield(target.to_s + ".slight")
     end
 

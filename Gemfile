@@ -1,2 +1,2 @@
-gem 'rack'
+gem 'rake'
 gem 'tilt'

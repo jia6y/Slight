@@ -19,8 +19,10 @@ gem install slight-lang
 #### [Usage]
 
 ###### - Syntax
+
 Pure Ruby Syntax
-Example: index.slight
+
+Example - index.slight
 ```ruby
 inc
 doctype :html
@@ -50,7 +52,10 @@ html do
       console.log(a);
     }
 
-end```
+end
+```
+
+
 
 ###### - Command
 ```bash

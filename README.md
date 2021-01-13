@@ -16,14 +16,39 @@ gem install slight-lang
 # gem install ./slight-lang-1.0.5.gem
 ```
 
+
 #### [Usage]
 
-###### - Syntax
+###### - Command
+```bash
+root@ubuntu: slight [-v] <source> [<output>]
+```
 
-Pure Ruby Syntax
 
-Example - index.slight
+###### - REPL
+```bash
+root@ubuntu: slsh
+```
 ```ruby
+sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
+sl:>    "Submit"
+sl:> end
+sl:> ;   (Enter ';' to run the script)
+
+# compile from file
+sl:> @../../example/component.slight.rb
+
+# help
+sl:> \h
+```
+
+#### [Syntax]
+
+###### - Pure Ruby Syntax
+
+```ruby
+# Example1 - index.slight
+
 inc
 doctype :html
 html do
@@ -55,45 +80,9 @@ html do
 end
 ```
 
-
-
-###### - Command
-```bash
-root@ubuntu: slight [-v] <source> [<output>]
-
-# slight index.slight index.htm
-# => index.htm
-```
-
-
-###### - REPL
-```bash
-root@ubuntu: slsh
-```
 ```ruby
-sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
-sl:>    "Submit"
-sl:> end
-sl:> ;   (Enter ';' to run the script)
+# Example 2
 
-# compile from file
-sl:> @../../example/component.slight.rb
-LOAD PATH="../../example/component.slight.rb"
-
-# help
-sl:> \h
- @file    => load and compile file dynamically. E.g. @/tmp/page.slight
- >@       => set output. E.g. Open: >@/tmp/output. Turn off: >@off
- \eg      => example
- \q       => exit
- \v       => show version (also: \ver, \version)
-```
-
-#### [Syntax]
-
-###### - Pure Ruby Syntax
-
-```ruby
 tag_name "class", [attributes: id, name, style, etc.] do; <content>; end
 
 # example

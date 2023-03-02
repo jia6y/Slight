@@ -1,4 +1,5 @@
 # Slight-lang
+Write HTML in a declartive way.
 A light and sweet template language.
 
 with:

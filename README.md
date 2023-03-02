@@ -17,35 +17,7 @@ gem install slight-lang
 # gem install ./slight-lang-1.0.5.gem
 ```
 
-
-#### [Usage]
-
-###### - Command
-```bash
-root@ubuntu: slight [-v] <source> [<output>]
-```
-
-
-###### - REPL
-```bash
-root@ubuntu: slsh
-```
-```ruby
-sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
-sl:>    "Submit"
-sl:> end
-sl:> ;   (Enter ';' to run the script)
-
-# compile from file
-sl:> @../../example/component.slight.rb
-
-# help
-sl:> \h
-```
-
-#### [Syntax]
-
-###### - Pure Ruby Syntax
+#### [Pure Ruby Syntax]
 
 ```ruby
 # Example1 - index.slight
@@ -93,6 +65,33 @@ div "panel panel-lg", css: "border: 5 dotted green", id: "msgbox" do
   end
 end
 ```
+
+
+#### [Usage]
+
+###### - Command
+```bash
+root@ubuntu: slight [-v] <source> [<output>]
+```
+
+
+###### - REPL
+```bash
+root@ubuntu: slsh
+```
+```ruby
+sl:> button 'btn btn-success btn-lg', name:'btn_submit', type:'submit' do
+sl:>    "Submit"
+sl:> end
+sl:> ;   (Enter ';' to run the script)
+
+# compile from file
+sl:> @../../example/component.slight.rb
+
+# help
+sl:> \h
+```
+
 ###### - HTML attributes and tags are naturally supported
 
 ###### - Support Shortcuts for HTML tags and attributes(can be customized)
